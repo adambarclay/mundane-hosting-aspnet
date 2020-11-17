@@ -9,7 +9,7 @@
 		<PackageIcon>Mundane.png</PackageIcon>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryType>git</RepositoryType>
-		<RepositoryUrl>https://github.com/adambarclay/mundane.hosting.aspnet</RepositoryUrl>
+		<RepositoryUrl>https://github.com/adambarclay/mundane-hosting-aspnet</RepositoryUrl>
 	</PropertyGroup>
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App"/>
