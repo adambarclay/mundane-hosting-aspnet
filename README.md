@@ -25,7 +25,8 @@ Install the [Mundane.Hosting.AspNet](https://www.nuget.org/packages/Mundane.Host
 
         var dependencies = new Dependencies(
             new Dependency<Configuration>(new Configuration(env)),
-            new Dependency<DataRepository>(request => new DataRepositorySqlServer(request.Dependency<Configuration>().ConnectionString)));
+            new Dependency<DataRepository>(request => new DataRepositorySqlServer(
+                request.Dependency<Configuration>().ConnectionString)));
 
         app.UseMundane(routing, dependencies);
     }
@@ -56,7 +57,7 @@ It is also possible to execute a specifc endpoint with:
 
 The endpoint must be a `MundaneEndpointDelegate` which has the signature `Task<Response> Endpoint(Request request)`. Any of the other Mundane endpoint signatures can be converted to a `MundaneEndpointDelegate` by calling `MundaneEndpoint.Create()` e.g.
 ```c#
-    MundanceEndpoint.Create(() => Response.Ok(o => Write("Hello World!)));
+    MundanceEndpoint.Create(() => Response.Ok(o => Write("Hello World!")));
 ```
 
 Since there is no routing information in this version of `ExecuteRequest()`, you must also supply an appropriate `routeParameters` dictionary for the endpoint. When called as part of the pipeline, Mundane creates a dictionary of parameters captured from the URL, e.g. for the route `/my-endpoint/{id}`, called with `/my-endpoint/123`, Mundane passes `new Dictionary<string, string> { { "id", "123" } }` as `routeParameters`.
