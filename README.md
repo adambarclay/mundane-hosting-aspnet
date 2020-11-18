@@ -6,13 +6,11 @@ Mundane is a lightweight "no magic" web framework for .NET.
 
 This package enables a Mundane application to be hosted with ASP.NET.
 
-See the [Mundane documentation](https://github.com/adambarclay/mundane/blob/main/README.md) for more information.
+See the [Mundane documentation](https://github.com/adambarclay/mundane) for more information.
 
 ## Getting Started
 
-In Startup.cs, configure the application routing and dependencies and call `UseMundane()`.
-
-`UseMundane()` should be the last middleware component added to the pipeline.
+Install the [Mundane.Hosting.AspNet](https://www.nuget.org/packages/Mundane.Hosting.AspNet/) nuget package, then in your ASP.NET startup code call `app.UseMundane();`, passing in the routing and dependencies configuration.
 
 ```c#
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -35,7 +33,7 @@ In Startup.cs, configure the application routing and dependencies and call `UseM
 
 ## Executing Requests
 
-Endpoints can be executed outside of the ASP.NET pipeline by calling `MundaneMiddleware.ExecuteRequest()`.
+Endpoints can be executed in a different part the ASP.NET pipeline by calling `MundaneMiddleware.ExecuteRequest()`. For example you may want to do custom error handling while still making use of the Mundane engine.
 
 Passing the current `HttpContext` and the routing and dependencies configuration will execute the endpoint which matches the request.
 
@@ -46,7 +44,7 @@ Passing the current `HttpContext` and the routing and dependencies configuration
         DependencyFinder dependencyFinder)
 ```
 
-It is also possible to execute a specifc endpoint. The endpoint must be a `MundaneEndpointDelegate` which has the signature `Task<Response> Endpoint(Request request)`.
+It is also possible to execute a specifc endpoint with:
 
 ```c#
     public static async Task ExecuteRequest(
@@ -55,3 +53,12 @@ It is also possible to execute a specifc endpoint. The endpoint must be a `Munda
         Dictionary<string, string> routeParameters,
         DependencyFinder dependencyFinder)
 ```
+
+The endpoint must be a `MundaneEndpointDelegate` which has the signature `Task<Response> Endpoint(Request request)`. Any of the other Mundane endpoint signatures can be converted to a `MundaneEndpointDelegate` by calling `MundaneEndpoint.Create()` e.g.
+```c#
+    MundanceEndpoint.Create(() => Response.Ok(o => Write("Hello World!)));
+```
+
+Since there is no routing information in this version of `ExecuteRequest()`, you must also supply an appropriate `routeParameters` dictionary for the endpoint. When called as part of the pipeline, Mundane creates a dictionary of parameters captured from the URL, e.g. for the route `/my-endpoint/{id}`, called with `/my-endpoint/123`, Mundane passes `new Dictionary<string, string> { { "id", "123" } }` as `routeParameters`.
+
+If the endpoint does not require route parameters, pass an empty dictionary: `new Dictionary<string, string>(0);`.

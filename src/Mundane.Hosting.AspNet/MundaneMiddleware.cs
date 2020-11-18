@@ -8,11 +8,11 @@ using Microsoft.Extensions.Primitives;
 
 namespace Mundane.Hosting.AspNet
 {
-	/// <summary>The Mundane framework ASP.NET Core pipeline extension.</summary>
+	/// <summary>The Mundane framework ASP.NET pipeline extension.</summary>
 	public static class MundaneMiddleware
 	{
 		/// <summary>Executes a request.</summary>
-		/// <param name="context">The ASP.NET Core HTTP context.</param>
+		/// <param name="context">The ASP.NET HTTP context.</param>
 		/// <param name="routing">The Mundane engine routing configuration.</param>
 		/// <param name="dependencyFinder">The dependency finder.</param>
 		/// <returns>A task that represents the asynchronous operation.</returns>
@@ -42,7 +42,7 @@ namespace Mundane.Hosting.AspNet
 		}
 
 		/// <summary>Executes a request.</summary>
-		/// <param name="context">The ASP.NET Core HTTP context.</param>
+		/// <param name="context">The ASP.NET HTTP context.</param>
 		/// <param name="endpoint">The endpoint to invoke.</param>
 		/// <param name="routeParameters">The parameters extracted from the route.</param>
 		/// <param name="dependencyFinder">The dependency finder.</param>
@@ -78,11 +78,11 @@ namespace Mundane.Hosting.AspNet
 			await MundaneMiddleware.Execute(context, dependencyFinder, endpoint, routeParameters);
 		}
 
-		/// <summary>Adds the Mundane framework to the ASP.NET Core pipeline.</summary>
-		/// <param name="app">The ASP.NET Core <see cref="IApplicationBuilder"/>.</param>
+		/// <summary>Adds the Mundane framework to the ASP.NET pipeline.</summary>
+		/// <param name="app">The ASP.NET <see cref="IApplicationBuilder"/>.</param>
 		/// <param name="routing">The Mundane engine routing configuration.</param>
 		/// <param name="dependencyFinder">The dependency finder.</param>
-		/// <returns>The same ASP.NET Core <see cref="IApplicationBuilder"/>.</returns>
+		/// <returns>The same ASP.NET <see cref="IApplicationBuilder"/>.</returns>
 		/// <exception cref="ArgumentNullException"><paramref name="app"/>, <paramref name="dependencyFinder"/> or <paramref name="routing"/> is <see langword="null"/>.</exception>
 		[return: NotNull]
 		public static IApplicationBuilder UseMundane(
