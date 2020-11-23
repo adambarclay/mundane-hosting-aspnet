@@ -4,12 +4,16 @@
 	</PropertyGroup>
 	<PropertyGroup>
 		<Authors>Adam Barclay</Authors>
+		<Copyright>Copyright © 2020 Adam Barclay</Copyright>
 		<Description>Mundane is a lightweight "no magic" web framework for .NET. This package enables a Mundane application to be hosted with ASP.NET.</Description>
-		<PackageTags>Mundane</PackageTags>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
 		<PackageIcon>Mundane.png</PackageIcon>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<RepositoryType>git</RepositoryType>
-		<RepositoryUrl>https://github.com/adambarclay/mundane-hosting-aspnet</RepositoryUrl>
+		<PackageTags>Mundane</PackageTags>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<Title>Mundane ASP.NET Host</Title>
 	</PropertyGroup>
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App"/>
@@ -17,6 +21,7 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
 		<PackageReference Include="Mundane" Version="1.0.0"/>
 		<PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.261">
 			<PrivateAssets>all</PrivateAssets>
