@@ -16,9 +16,8 @@ namespace Mundane.Hosting.AspNet
 		/// <param name="routing">The Mundane engine routing configuration.</param>
 		/// <param name="dependencyFinder">The dependency finder.</param>
 		/// <returns>A task that represents the asynchronous operation.</returns>
-		/// <exception cref="ArgumentNullException"><paramref name="context"/>, <paramref name="dependencyFinder"/> or <paramref name="routing"/> is <see langword="null"/>.</exception>
-		[return: NotNull]
-		public static async Task ExecuteRequest(
+		/// <exception cref="ArgumentNullException"><paramref name="context"/>, <paramref name="routing"/> or <paramref name="dependencyFinder"/> is <see langword="null"/>.</exception>
+		public static async ValueTask ExecuteRequest(
 			[DisallowNull] HttpContext context,
 			[DisallowNull] Routing routing,
 			[DisallowNull] DependencyFinder dependencyFinder)
@@ -47,9 +46,8 @@ namespace Mundane.Hosting.AspNet
 		/// <param name="routeParameters">The parameters extracted from the route.</param>
 		/// <param name="dependencyFinder">The dependency finder.</param>
 		/// <returns>A task that represents the asynchronous operation.</returns>
-		/// <exception cref="ArgumentNullException"><paramref name="context"/>, <paramref name="dependencyFinder"/>, <paramref name="endpoint"/> or <paramref name="routeParameters"/> is <see langword="null"/>.</exception>
-		[return: NotNull]
-		public static async Task ExecuteRequest(
+		/// <exception cref="ArgumentNullException"><paramref name="context"/>, <paramref name="endpoint"/>, <paramref name="routeParameters"/> or <paramref name="dependencyFinder"/> is <see langword="null"/>.</exception>
+		public static async ValueTask ExecuteRequest(
 			[DisallowNull] HttpContext context,
 			[DisallowNull] MundaneEndpointDelegate endpoint,
 			[DisallowNull] Dictionary<string, string> routeParameters,
@@ -83,7 +81,7 @@ namespace Mundane.Hosting.AspNet
 		/// <param name="routing">The Mundane engine routing configuration.</param>
 		/// <param name="dependencyFinder">The dependency finder.</param>
 		/// <returns>The same ASP.NET <see cref="IApplicationBuilder"/>.</returns>
-		/// <exception cref="ArgumentNullException"><paramref name="app"/>, <paramref name="dependencyFinder"/> or <paramref name="routing"/> is <see langword="null"/>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="app"/>, <paramref name="routing"/> or <paramref name="dependencyFinder"/> is <see langword="null"/>.</exception>
 		[return: NotNull]
 		public static IApplicationBuilder UseMundane(
 			[DisallowNull] this IApplicationBuilder app,
@@ -105,19 +103,19 @@ namespace Mundane.Hosting.AspNet
 				throw new ArgumentNullException(nameof(dependencyFinder));
 			}
 
-			app.Run(context => MundaneMiddleware.Execute(context, dependencyFinder, routing));
+			app.Run(async context => await MundaneMiddleware.Execute(context, dependencyFinder, routing));
 
 			return app;
 		}
 
-		private static async Task Execute(HttpContext context, DependencyFinder dependencyFinder, Routing routing)
+		private static async ValueTask Execute(HttpContext context, DependencyFinder dependencyFinder, Routing routing)
 		{
 			(var endpoint, var routeParameters) = routing.FindEndpoint(context.Request.Method, context.Request.Path);
 
 			await MundaneMiddleware.Execute(context, dependencyFinder, endpoint, routeParameters);
 		}
 
-		private static async Task Execute(
+		private static async ValueTask Execute(
 			HttpContext context,
 			DependencyFinder dependencyFinder,
 			MundaneEndpointDelegate endpoint,

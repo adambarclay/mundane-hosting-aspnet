@@ -16,7 +16,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 			var exception = await Assert.ThrowsAnyAsync<ArgumentNullException>(
 				async () => await MundaneMiddleware.ExecuteRequest(
 					null!,
-					request => Task.FromResult(Response.Ok()),
+					request => ValueTask.FromResult(Response.Ok()),
 					new Dictionary<string, string>(0),
 					new Dependencies()));
 
@@ -29,7 +29,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 			var exception = await Assert.ThrowsAnyAsync<ArgumentNullException>(
 				async () => await MundaneMiddleware.ExecuteRequest(
 					new DefaultHttpContext(),
-					request => Task.FromResult(Response.Ok()),
+					request => ValueTask.FromResult(Response.Ok()),
 					new Dictionary<string, string>(0),
 					null!));
 
@@ -55,7 +55,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 			var exception = await Assert.ThrowsAnyAsync<ArgumentNullException>(
 				async () => await MundaneMiddleware.ExecuteRequest(
 					new DefaultHttpContext(),
-					request => Task.FromResult(Response.Ok()),
+					request => ValueTask.FromResult(Response.Ok()),
 					null!,
 					new Dependencies()));
 

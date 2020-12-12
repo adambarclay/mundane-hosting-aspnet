@@ -39,7 +39,7 @@ Endpoints can be executed in a different part the ASP.NET pipeline by calling `M
 Passing the current `HttpContext` and the routing and dependencies configuration will execute the endpoint which matches the request.
 
 ```c#
-    public static async Task ExecuteRequest(
+    public static async ValueTask ExecuteRequest(
         HttpContext context,
         Routing routing,
         DependencyFinder dependencyFinder)
@@ -48,14 +48,14 @@ Passing the current `HttpContext` and the routing and dependencies configuration
 It is also possible to execute a specifc endpoint with:
 
 ```c#
-    public static async Task ExecuteRequest(
+    public static async ValueTask ExecuteRequest(
         HttpContext context,
         MundaneEndpointDelegate endpoint,
         Dictionary<string, string> routeParameters,
         DependencyFinder dependencyFinder)
 ```
 
-The endpoint must be a `MundaneEndpointDelegate` which has the signature `Task<Response> Endpoint(Request request)`. Any of the other Mundane endpoint signatures can be converted to a `MundaneEndpointDelegate` by calling `MundaneEndpoint.Create()` e.g.
+The endpoint must be a `MundaneEndpointDelegate` which has the signature `ValueTask<Response> Endpoint(Request request)`. Any of the other Mundane endpoint signatures can be converted to a `MundaneEndpointDelegate` by calling `MundaneEndpoint.Create()` e.g.
 ```c#
     MundanceEndpoint.Create(() => Response.Ok(o => Write("Hello World!")));
 ```
