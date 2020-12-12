@@ -15,9 +15,9 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 		{
 			var applicationBuilder = new Mock<IApplicationBuilder>(MockBehavior.Strict);
 
-			var app = applicationBuilder.Object;
+			var app = applicationBuilder.Object!;
 
-			applicationBuilder.Setup(o => o.Use(It.IsAny<Func<RequestDelegate, RequestDelegate>>())).Returns(app);
+			applicationBuilder.Setup(o => o.Use(It.IsAny<Func<RequestDelegate, RequestDelegate>>()!))!.Returns(app);
 
 			var returnValue = app.UseMundane(new Routing(o => { }), new Dependencies());
 

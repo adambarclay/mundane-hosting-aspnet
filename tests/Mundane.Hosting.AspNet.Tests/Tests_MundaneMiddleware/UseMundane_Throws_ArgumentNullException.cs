@@ -15,27 +15,27 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 			var exception = Assert.ThrowsAny<ArgumentNullException>(
 				() => MundaneMiddleware.UseMundane(null!, new Routing(o => { }), new Dependencies()));
 
-			Assert.Equal("app", exception.ParamName);
+			Assert.Equal("app", exception.ParamName!);
 		}
 
 		[Fact]
 		public static void When_The_Dependency_Finder_Parameter_Is_Null()
 		{
 			var exception = Assert.ThrowsAny<ArgumentNullException>(
-				() => new Mock<IApplicationBuilder>(MockBehavior.Strict).Object.UseMundane(
+				() => new Mock<IApplicationBuilder>(MockBehavior.Strict).Object!.UseMundane(
 					new Routing(o => { }),
 					null!));
 
-			Assert.Equal("dependencyFinder", exception.ParamName);
+			Assert.Equal("dependencyFinder", exception.ParamName!);
 		}
 
 		[Fact]
 		public static void When_The_Routing_Parameter_Is_Null()
 		{
 			var exception = Assert.ThrowsAny<ArgumentNullException>(
-				() => new Mock<IApplicationBuilder>(MockBehavior.Strict).Object.UseMundane(null!, new Dependencies()));
+				() => new Mock<IApplicationBuilder>(MockBehavior.Strict).Object!.UseMundane(null!, new Dependencies()));
 
-			Assert.Equal("routing", exception.ParamName);
+			Assert.Equal("routing", exception.ParamName!);
 		}
 	}
 }

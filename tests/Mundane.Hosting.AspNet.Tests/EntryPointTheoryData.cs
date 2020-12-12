@@ -30,7 +30,7 @@ namespace Mundane.Hosting.AspNet.Tests
 
 			this.Add(
 				async (context, method, path, endpoint) =>
-					await new ApplicationBuilder(new Mock<IServiceProvider>(MockBehavior.Strict).Object).UseMundane(
+					await new ApplicationBuilder(new Mock<IServiceProvider>(MockBehavior.Strict).Object!).UseMundane(
 							new Routing(o => o.Endpoint(method, path, endpoint)),
 							new Dependencies())
 						.Build()

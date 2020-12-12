@@ -78,7 +78,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 				{
 					var expected = cookies[i].Key + "=" + cookies[i].Value;
 
-					Assert.StartsWith(expected, responseCookies[i], StringComparison.Ordinal);
+					Assert.StartsWith(expected, responseCookies[i]!, StringComparison.Ordinal);
 				}
 			}
 		}

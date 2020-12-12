@@ -20,7 +20,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					new Dictionary<string, string>(0),
 					new Dependencies()));
 
-			Assert.Equal("context", exception.ParamName);
+			Assert.Equal("context", exception.ParamName!);
 		}
 
 		[Fact]
@@ -33,7 +33,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					new Dictionary<string, string>(0),
 					null!));
 
-			Assert.Equal("dependencyFinder", exception.ParamName);
+			Assert.Equal("dependencyFinder", exception.ParamName!);
 		}
 
 		[Fact]
@@ -46,7 +46,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					new Dictionary<string, string>(0),
 					new Dependencies()));
 
-			Assert.Equal("endpoint", exception.ParamName);
+			Assert.Equal("endpoint", exception.ParamName!);
 		}
 
 		[Fact]
@@ -59,7 +59,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					null!,
 					new Dependencies()));
 
-			Assert.Equal("routeParameters", exception.ParamName);
+			Assert.Equal("routeParameters", exception.ParamName!);
 		}
 	}
 }

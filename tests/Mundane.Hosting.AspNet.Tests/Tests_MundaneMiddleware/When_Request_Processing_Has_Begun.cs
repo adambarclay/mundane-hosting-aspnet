@@ -63,10 +63,10 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 
 			var cookieCollection = new Mock<IRequestCookieCollection>(MockBehavior.Strict);
 
-			cookieCollection.Setup(o => o.Count).Returns(cookies.Count);
+			cookieCollection.Setup(o => o.Count)!.Returns(cookies.Count);
 
-			cookieCollection.Setup(o => o.GetEnumerator())
-				.Returns(() => ((IEnumerable<KeyValuePair<string, string>>)cookies).GetEnumerator());
+			cookieCollection.Setup(o => o.GetEnumerator())!.Returns(
+				() => ((IEnumerable<KeyValuePair<string, string>>)cookies).GetEnumerator());
 
 			await using (var responseStream = new MemoryStream())
 			{
@@ -75,7 +75,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 				context.Request.Method = HttpMethod.Get;
 				context.Request.Path = "/";
 				context.Response.Body = responseStream;
-				context.Request.Cookies = cookieCollection.Object;
+				context.Request.Cookies = cookieCollection.Object!;
 
 				var output = new KeyValuePair<string, string>[cookies.Length];
 

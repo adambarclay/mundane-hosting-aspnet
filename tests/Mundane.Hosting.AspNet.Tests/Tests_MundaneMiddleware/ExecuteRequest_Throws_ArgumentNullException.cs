@@ -15,7 +15,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 			var exception = await Assert.ThrowsAnyAsync<ArgumentNullException>(
 				async () => await MundaneMiddleware.ExecuteRequest(null!, new Routing(o => { }), new Dependencies()));
 
-			Assert.Equal("context", exception.ParamName);
+			Assert.Equal("context", exception.ParamName!);
 		}
 
 		[Fact]
@@ -27,7 +27,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					new Routing(o => { }),
 					null!));
 
-			Assert.Equal("dependencyFinder", exception.ParamName);
+			Assert.Equal("dependencyFinder", exception.ParamName!);
 		}
 
 		[Fact]
@@ -39,7 +39,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					null!,
 					new Dependencies()));
 
-			Assert.Equal("routing", exception.ParamName);
+			Assert.Equal("routing", exception.ParamName!);
 		}
 	}
 }
