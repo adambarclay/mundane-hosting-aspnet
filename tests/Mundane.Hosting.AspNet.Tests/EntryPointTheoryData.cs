@@ -9,32 +9,37 @@ using Xunit;
 
 namespace Mundane.Hosting.AspNet.Tests
 {
+	public delegate ValueTask EntryPoint(
+		HttpContext context,
+		string method,
+		string path,
+		MundaneEndpointDelegate endpoint);
+
 	[ExcludeFromCodeCoverage]
-	internal sealed class EntryPointTheoryData
-		: TheoryData<Func<HttpContext, string, string, MundaneEndpointDelegate, Task>>
+	internal sealed class EntryPointTheoryData : TheoryData<EntryPoint>
 	{
 		public EntryPointTheoryData()
 		{
 			this.Add(
-				async (context, method, path, endpoint) => await MundaneMiddleware.ExecuteRequest(
+				(context, method, path, endpoint) => MundaneMiddleware.ExecuteRequest(
 					context,
 					new Routing(o => o.Endpoint(method, path, endpoint)),
 					new Dependencies()));
 
 			this.Add(
-				async (context, method, path, endpoint) => await MundaneMiddleware.ExecuteRequest(
+				(context, _, _, endpoint) => MundaneMiddleware.ExecuteRequest(
 					context,
 					endpoint,
 					new Dictionary<string, string>(0),
 					new Dependencies()));
 
 			this.Add(
-				async (context, method, path, endpoint) =>
-					await new ApplicationBuilder(new Mock<IServiceProvider>(MockBehavior.Strict).Object!).UseMundane(
+				(context, method, path, endpoint) => new ValueTask(
+					new ApplicationBuilder(new Mock<IServiceProvider>(MockBehavior.Strict).Object!).UseMundane(
 							new Routing(o => o.Endpoint(method, path, endpoint)),
 							new Dependencies())
 						.Build()
-						.Invoke(context));
+						.Invoke(context)));
 		}
 	}
 }

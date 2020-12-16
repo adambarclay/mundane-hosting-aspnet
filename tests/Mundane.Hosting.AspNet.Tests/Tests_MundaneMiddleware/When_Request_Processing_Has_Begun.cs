@@ -17,8 +17,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 	{
 		[Theory]
 		[ClassData(typeof(EntryPointTheoryData))]
-		public static async Task The_AspNetCore_Body_Has_Been_Copied_To_The_Request(
-			Func<HttpContext, string, string, MundaneEndpointDelegate, Task> entryPoint)
+		public static async Task The_AspNetCore_Body_Has_Been_Copied_To_The_Request(EntryPoint entryPoint)
 		{
 			var body = Guid.NewGuid().ToString();
 
@@ -37,7 +36,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 						context,
 						HttpMethod.Get,
 						"/",
-						MundaneEndpoint.Create(request => Response.Ok(async o => await o.Write(request.Body))));
+						MundaneEndpoint.Create(request => Response.Ok(o => o.Write(request.Body))));
 
 					context.Response.Body.Position = 0;
 
@@ -51,8 +50,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 
 		[Theory]
 		[ClassData(typeof(EntryPointTheoryData))]
-		public static async Task The_AspNetCore_Cookies_Have_Been_Copied_To_The_Request(
-			Func<HttpContext, string, string, MundaneEndpointDelegate, Task> entryPoint)
+		public static async Task The_AspNetCore_Cookies_Have_Been_Copied_To_The_Request(EntryPoint entryPoint)
 		{
 			var cookies = new[]
 			{
@@ -106,8 +104,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 
 		[Theory]
 		[ClassData(typeof(EntryPointTheoryData))]
-		public static async Task The_AspNetCore_File_Uploads_Have_Been_Copied_To_The_Request(
-			Func<HttpContext, string, string, MundaneEndpointDelegate, Task> entryPoint)
+		public static async Task The_AspNetCore_File_Uploads_Have_Been_Copied_To_The_Request(EntryPoint entryPoint)
 		{
 			var fileBytes = new[]
 			{
@@ -193,8 +190,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 
 		[Theory]
 		[ClassData(typeof(EntryPointTheoryData))]
-		public static async Task The_AspNetCore_Form_Parameters_Have_Been_Copied_To_The_Request(
-			Func<HttpContext, string, string, MundaneEndpointDelegate, Task> entryPoint)
+		public static async Task The_AspNetCore_Form_Parameters_Have_Been_Copied_To_The_Request(EntryPoint entryPoint)
 		{
 			var formParameters = new[]
 			{
@@ -243,8 +239,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 
 		[Theory]
 		[ClassData(typeof(EntryPointTheoryData))]
-		public static async Task The_AspNetCore_Headers_Have_Been_Copied_To_The_Request(
-			Func<HttpContext, string, string, MundaneEndpointDelegate, Task> entryPoint)
+		public static async Task The_AspNetCore_Headers_Have_Been_Copied_To_The_Request(EntryPoint entryPoint)
 		{
 			var headers = new[]
 			{
@@ -292,8 +287,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 
 		[Theory]
 		[ClassData(typeof(EntryPointTheoryData))]
-		public static async Task The_AspNetCore_Method_Has_Been_Copied_To_The_Request(
-			Func<HttpContext, string, string, MundaneEndpointDelegate, Task> entryPoint)
+		public static async Task The_AspNetCore_Method_Has_Been_Copied_To_The_Request(EntryPoint entryPoint)
 		{
 			var method = Guid.NewGuid().ToString();
 
@@ -309,7 +303,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					context,
 					method,
 					"/",
-					MundaneEndpoint.Create(request => Response.Ok(async o => await o.Write(request.Method))));
+					MundaneEndpoint.Create(request => Response.Ok(o => o.Write(request.Method))));
 
 				context.Response.Body.Position = 0;
 
@@ -322,8 +316,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 
 		[Theory]
 		[ClassData(typeof(EntryPointTheoryData))]
-		public static async Task The_AspNetCore_Path_Has_Been_Copied_To_The_Request(
-			Func<HttpContext, string, string, MundaneEndpointDelegate, Task> entryPoint)
+		public static async Task The_AspNetCore_Path_Has_Been_Copied_To_The_Request(EntryPoint entryPoint)
 		{
 			var path = "/" + Guid.NewGuid();
 
@@ -339,7 +332,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					context,
 					HttpMethod.Get,
 					path,
-					MundaneEndpoint.Create(request => Response.Ok(async o => await o.Write(request.Path))));
+					MundaneEndpoint.Create(request => Response.Ok(o => o.Write(request.Path))));
 
 				context.Response.Body.Position = 0;
 
@@ -352,8 +345,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 
 		[Theory]
 		[ClassData(typeof(EntryPointTheoryData))]
-		public static async Task The_AspNetCore_Query_Parameters_Have_Been_Copied_To_The_Request(
-			Func<HttpContext, string, string, MundaneEndpointDelegate, Task> entryPoint)
+		public static async Task The_AspNetCore_Query_Parameters_Have_Been_Copied_To_The_Request(EntryPoint entryPoint)
 		{
 			var queryParameters = new[]
 			{
@@ -402,8 +394,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 
 		[Theory]
 		[ClassData(typeof(EntryPointTheoryData))]
-		public static async Task There_Are_No_Form_Parameters_If_HasFormContentType_Is_False(
-			Func<HttpContext, string, string, MundaneEndpointDelegate, Task> entryPoint)
+		public static async Task There_Are_No_Form_Parameters_If_HasFormContentType_Is_False(EntryPoint entryPoint)
 		{
 			await using (var responseStream = new MemoryStream())
 			{

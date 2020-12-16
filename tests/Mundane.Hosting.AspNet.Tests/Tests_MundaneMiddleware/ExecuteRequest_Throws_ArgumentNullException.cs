@@ -13,7 +13,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 		public static async Task When_The_Context_Parameter_Is_Null()
 		{
 			var exception = await Assert.ThrowsAnyAsync<ArgumentNullException>(
-				async () => await MundaneMiddleware.ExecuteRequest(null!, new Routing(o => { }), new Dependencies()));
+				async () => await MundaneMiddleware.ExecuteRequest(null!, new Routing(_ => { }), new Dependencies()));
 
 			Assert.Equal("context", exception.ParamName!);
 		}
@@ -24,7 +24,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 			var exception = await Assert.ThrowsAnyAsync<ArgumentNullException>(
 				async () => await MundaneMiddleware.ExecuteRequest(
 					new DefaultHttpContext(),
-					new Routing(o => { }),
+					new Routing(_ => { }),
 					null!));
 
 			Assert.Equal("dependencyFinder", exception.ParamName!);

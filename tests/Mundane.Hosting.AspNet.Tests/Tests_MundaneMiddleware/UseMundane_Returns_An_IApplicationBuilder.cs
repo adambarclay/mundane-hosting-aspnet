@@ -19,7 +19,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 
 			applicationBuilder.Setup(o => o.Use(It.IsAny<Func<RequestDelegate, RequestDelegate>>()!))!.Returns(app);
 
-			var returnValue = app.UseMundane(new Routing(o => { }), new Dependencies());
+			var returnValue = app.UseMundane(new Routing(_ => { }), new Dependencies());
 
 			Assert.Same(app, returnValue);
 		}

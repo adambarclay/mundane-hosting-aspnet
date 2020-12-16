@@ -14,8 +14,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 	{
 		[Theory]
 		[ClassData(typeof(EntryPointTheoryData))]
-		public static async Task The_Response_Body_Has_Been_Written_To_The_AspNetCore_Body(
-			Func<HttpContext, string, string, MundaneEndpointDelegate, Task> entryPoint)
+		public static async Task The_Response_Body_Has_Been_Written_To_The_AspNetCore_Body(EntryPoint entryPoint)
 		{
 			var output = Guid.NewGuid().ToString();
 
@@ -31,7 +30,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					context,
 					HttpMethod.Get,
 					"/",
-					MundaneEndpoint.Create(() => Response.Ok(async o => await o.Write(output))));
+					MundaneEndpoint.Create(() => Response.Ok(o => o.Write(output))));
 
 				context.Response.Body.Position = 0;
 
@@ -44,8 +43,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 
 		[Theory]
 		[ClassData(typeof(EntryPointTheoryData))]
-		public static async Task The_Response_Cookies_Have_Been_Copied_To_The_AspNetCore_Headers(
-			Func<HttpContext, string, string, MundaneEndpointDelegate, Task> entryPoint)
+		public static async Task The_Response_Cookies_Have_Been_Copied_To_The_AspNetCore_Headers(EntryPoint entryPoint)
 		{
 			var cookies = new[]
 			{
@@ -85,8 +83,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 
 		[Theory]
 		[ClassData(typeof(EntryPointTheoryData))]
-		public static async Task The_Response_Headers_Have_Been_Copied_To_The_AspNetCore_Headers(
-			Func<HttpContext, string, string, MundaneEndpointDelegate, Task> entryPoint)
+		public static async Task The_Response_Headers_Have_Been_Copied_To_The_AspNetCore_Headers(EntryPoint entryPoint)
 		{
 			var headers = new[]
 			{
@@ -124,8 +121,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 
 		[Theory]
 		[ClassData(typeof(EntryPointTheoryData))]
-		public static async Task The_Response_Status_Has_Been_Copied_To_The_AspNetCore_Status(
-			Func<HttpContext, string, string, MundaneEndpointDelegate, Task> entryPoint)
+		public static async Task The_Response_Status_Has_Been_Copied_To_The_AspNetCore_Status(EntryPoint entryPoint)
 		{
 			const int statusCode = 12345;
 
