@@ -17,27 +17,27 @@ namespace Mundane.Hosting.AspNet
 		/// <param name="dependencyFinder">The dependency finder.</param>
 		/// <returns>A task that represents the asynchronous operation.</returns>
 		/// <exception cref="ArgumentNullException"><paramref name="context"/>, <paramref name="routing"/> or <paramref name="dependencyFinder"/> is <see langword="null"/>.</exception>
-		public static async ValueTask ExecuteRequest(
+		public static ValueTask ExecuteRequest(
 			[DisallowNull] HttpContext context,
 			[DisallowNull] Routing routing,
 			[DisallowNull] DependencyFinder dependencyFinder)
 		{
 			if (context == null)
 			{
-				throw new ArgumentNullException(nameof(context));
+				return ValueTask.FromException(new ArgumentNullException(nameof(context)));
 			}
 
 			if (routing == null)
 			{
-				throw new ArgumentNullException(nameof(routing));
+				return ValueTask.FromException(new ArgumentNullException(nameof(routing)));
 			}
 
 			if (dependencyFinder == null)
 			{
-				throw new ArgumentNullException(nameof(dependencyFinder));
+				return ValueTask.FromException(new ArgumentNullException(nameof(dependencyFinder)));
 			}
 
-			await MundaneMiddleware.Execute(context, dependencyFinder, routing);
+			return MundaneMiddleware.Execute(context, dependencyFinder, routing);
 		}
 
 		/// <summary>Executes a request.</summary>
@@ -47,7 +47,7 @@ namespace Mundane.Hosting.AspNet
 		/// <param name="dependencyFinder">The dependency finder.</param>
 		/// <returns>A task that represents the asynchronous operation.</returns>
 		/// <exception cref="ArgumentNullException"><paramref name="context"/>, <paramref name="endpoint"/>, <paramref name="routeParameters"/> or <paramref name="dependencyFinder"/> is <see langword="null"/>.</exception>
-		public static async ValueTask ExecuteRequest(
+		public static ValueTask ExecuteRequest(
 			[DisallowNull] HttpContext context,
 			[DisallowNull] MundaneEndpointDelegate endpoint,
 			[DisallowNull] Dictionary<string, string> routeParameters,
@@ -55,25 +55,25 @@ namespace Mundane.Hosting.AspNet
 		{
 			if (context == null)
 			{
-				throw new ArgumentNullException(nameof(context));
+				return ValueTask.FromException(new ArgumentNullException(nameof(context)));
 			}
 
 			if (endpoint == null)
 			{
-				throw new ArgumentNullException(nameof(endpoint));
+				return ValueTask.FromException(new ArgumentNullException(nameof(endpoint)));
 			}
 
 			if (routeParameters == null)
 			{
-				throw new ArgumentNullException(nameof(routeParameters));
+				return ValueTask.FromException(new ArgumentNullException(nameof(routeParameters)));
 			}
 
 			if (dependencyFinder == null)
 			{
-				throw new ArgumentNullException(nameof(dependencyFinder));
+				return ValueTask.FromException(new ArgumentNullException(nameof(dependencyFinder)));
 			}
 
-			await MundaneMiddleware.Execute(context, dependencyFinder, endpoint, routeParameters);
+			return MundaneMiddleware.Execute(context, dependencyFinder, endpoint, routeParameters);
 		}
 
 		/// <summary>Adds the Mundane framework to the ASP.NET pipeline.</summary>
