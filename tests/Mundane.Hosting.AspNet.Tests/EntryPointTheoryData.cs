@@ -9,11 +9,7 @@ using Xunit;
 
 namespace Mundane.Hosting.AspNet.Tests
 {
-	public delegate ValueTask EntryPoint(
-		HttpContext context,
-		string method,
-		string path,
-		MundaneEndpointDelegate endpoint);
+	public delegate ValueTask EntryPoint(HttpContext context, string method, string path, MundaneEndpoint endpoint);
 
 	[ExcludeFromCodeCoverage]
 	internal sealed class EntryPointTheoryData : TheoryData<EntryPoint>

@@ -30,7 +30,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					context,
 					HttpMethod.Get,
 					"/",
-					MundaneEndpoint.Create(() => Response.Ok(o => o.Write(output))));
+					MundaneEndpointFactory.Create(() => Response.Ok(o => o.Write(output))));
 
 				context.Response.Body.Position = 0;
 
@@ -64,7 +64,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					context,
 					HttpMethod.Get,
 					"/",
-					MundaneEndpoint.Create(
+					MundaneEndpointFactory.Create(
 						() => Response.Ok()
 							.AddHeader(HeaderValue.SessionCookie(cookies[0].Key, cookies[0].Value))
 							.AddHeader(HeaderValue.SessionCookie(cookies[1].Key, cookies[1].Value))
@@ -104,7 +104,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					context,
 					HttpMethod.Get,
 					"/",
-					MundaneEndpoint.Create(
+					MundaneEndpointFactory.Create(
 						() => Response.Ok()
 							.AddHeader(new HeaderValue(headers[0].Key, headers[0].Value))
 							.AddHeader(new HeaderValue(headers[1].Key, headers[1].Value))
@@ -137,7 +137,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					context,
 					HttpMethod.Get,
 					"/",
-					MundaneEndpoint.Create(() => new Response(statusCode)));
+					MundaneEndpointFactory.Create(() => new Response(statusCode)));
 
 				Assert.Equal(statusCode, context.Response.StatusCode);
 			}

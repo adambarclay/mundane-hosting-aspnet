@@ -36,7 +36,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 						context,
 						HttpMethod.Get,
 						"/",
-						MundaneEndpoint.Create(request => Response.Ok(o => o.Write(request.Body))));
+						MundaneEndpointFactory.Create(request => Response.Ok(o => o.Write(request.Body))));
 
 					context.Response.Body.Position = 0;
 
@@ -81,7 +81,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					context,
 					HttpMethod.Get,
 					"/",
-					MundaneEndpoint.Create(
+					MundaneEndpointFactory.Create(
 						request =>
 						{
 							for (var i = 0; i < cookies.Length; ++i)
@@ -164,7 +164,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 				context,
 				HttpMethod.Get,
 				"/",
-				MundaneEndpoint.Create(
+				MundaneEndpointFactory.Create(
 					request =>
 					{
 						for (var i = 0; i < formFiles.Length; ++i)
@@ -216,7 +216,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					context,
 					HttpMethod.Get,
 					"/",
-					MundaneEndpoint.Create(
+					MundaneEndpointFactory.Create(
 						request =>
 						{
 							for (var i = 0; i < formParameters.Length; ++i)
@@ -265,7 +265,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					context,
 					HttpMethod.Get,
 					"/",
-					MundaneEndpoint.Create(
+					MundaneEndpointFactory.Create(
 						request =>
 						{
 							for (var i = 0; i < headers.Length; ++i)
@@ -303,7 +303,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					context,
 					method,
 					"/",
-					MundaneEndpoint.Create(request => Response.Ok(o => o.Write(request.Method))));
+					MundaneEndpointFactory.Create(request => Response.Ok(o => o.Write(request.Method))));
 
 				context.Response.Body.Position = 0;
 
@@ -332,7 +332,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					context,
 					HttpMethod.Get,
 					path,
-					MundaneEndpoint.Create(request => Response.Ok(o => o.Write(request.Path))));
+					MundaneEndpointFactory.Create(request => Response.Ok(o => o.Write(request.Path))));
 
 				context.Response.Body.Position = 0;
 
@@ -371,7 +371,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					context,
 					HttpMethod.Get,
 					"/",
-					MundaneEndpoint.Create(
+					MundaneEndpointFactory.Create(
 						request =>
 						{
 							for (var i = 0; i < queryParameters.Length; ++i)
@@ -411,7 +411,7 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 					context,
 					HttpMethod.Get,
 					"/",
-					MundaneEndpoint.Create(
+					MundaneEndpointFactory.Create(
 						request =>
 						{
 							count = request.AllFormParameters.Count();

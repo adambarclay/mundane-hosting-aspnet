@@ -45,7 +45,7 @@ namespace Mundane.Hosting.AspNet
 		/// <exception cref="ArgumentNullException"><paramref name="context"/>, <paramref name="endpoint"/>, <paramref name="routeParameters"/> or <paramref name="dependencyFinder"/> is <see langword="null"/>.</exception>
 		public static ValueTask ExecuteRequest(
 			HttpContext context,
-			MundaneEndpointDelegate endpoint,
+			MundaneEndpoint endpoint,
 			Dictionary<string, string> routeParameters,
 			DependencyFinder dependencyFinder)
 		{
@@ -113,7 +113,7 @@ namespace Mundane.Hosting.AspNet
 		private static async ValueTask Execute(
 			HttpContext context,
 			DependencyFinder dependencyFinder,
-			MundaneEndpointDelegate endpoint,
+			MundaneEndpoint endpoint,
 			EnumerableDictionary<string, string> routeParameters)
 		{
 			var request = new Request(
