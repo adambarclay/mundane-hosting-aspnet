@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -17,10 +16,7 @@ namespace Mundane.Hosting.AspNet
 		/// <param name="dependencyFinder">The dependency finder.</param>
 		/// <returns>A task that represents the asynchronous operation.</returns>
 		/// <exception cref="ArgumentNullException"><paramref name="context"/>, <paramref name="routing"/> or <paramref name="dependencyFinder"/> is <see langword="null"/>.</exception>
-		public static ValueTask ExecuteRequest(
-			[DisallowNull] HttpContext context,
-			[DisallowNull] Routing routing,
-			[DisallowNull] DependencyFinder dependencyFinder)
+		public static ValueTask ExecuteRequest(HttpContext context, Routing routing, DependencyFinder dependencyFinder)
 		{
 			if (context == null)
 			{
@@ -48,10 +44,10 @@ namespace Mundane.Hosting.AspNet
 		/// <returns>A task that represents the asynchronous operation.</returns>
 		/// <exception cref="ArgumentNullException"><paramref name="context"/>, <paramref name="endpoint"/>, <paramref name="routeParameters"/> or <paramref name="dependencyFinder"/> is <see langword="null"/>.</exception>
 		public static ValueTask ExecuteRequest(
-			[DisallowNull] HttpContext context,
-			[DisallowNull] MundaneEndpointDelegate endpoint,
-			[DisallowNull] Dictionary<string, string> routeParameters,
-			[DisallowNull] DependencyFinder dependencyFinder)
+			HttpContext context,
+			MundaneEndpointDelegate endpoint,
+			Dictionary<string, string> routeParameters,
+			DependencyFinder dependencyFinder)
 		{
 			if (context == null)
 			{
@@ -82,11 +78,10 @@ namespace Mundane.Hosting.AspNet
 		/// <param name="dependencyFinder">The dependency finder.</param>
 		/// <returns>The same ASP.NET <see cref="IApplicationBuilder"/>.</returns>
 		/// <exception cref="ArgumentNullException"><paramref name="app"/>, <paramref name="routing"/> or <paramref name="dependencyFinder"/> is <see langword="null"/>.</exception>
-		[return: NotNull]
 		public static IApplicationBuilder UseMundane(
-			[DisallowNull] this IApplicationBuilder app,
-			[DisallowNull] Routing routing,
-			[DisallowNull] DependencyFinder dependencyFinder)
+			this IApplicationBuilder app,
+			Routing routing,
+			DependencyFinder dependencyFinder)
 		{
 			if (app == null)
 			{
