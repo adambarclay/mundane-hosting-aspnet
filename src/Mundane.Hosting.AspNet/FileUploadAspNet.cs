@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace Mundane.Hosting.AspNet
 {
-	internal sealed class AspNetCoreFileUpload : FileUpload
+	internal sealed class FileUploadAspNet : FileUpload
 	{
 		private readonly IFormFile formFile;
 
-		internal AspNetCoreFileUpload(IFormFile formFile)
+		internal FileUploadAspNet(IFormFile formFile)
 		{
 			this.formFile = formFile;
 		}

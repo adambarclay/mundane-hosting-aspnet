@@ -16,9 +16,9 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 			var exception = await Assert.ThrowsAnyAsync<ArgumentNullException>(
 				async () => await MundaneMiddleware.ExecuteRequest(
 					null!,
+					new Dependencies(),
 					_ => ValueTask.FromResult(Response.Ok()),
-					new Dictionary<string, string>(0),
-					new Dependencies()));
+					new RouteParameters(new Dictionary<string, string>(0))));
 
 			Assert.Equal("context", exception.ParamName!);
 		}
@@ -29,9 +29,9 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 			var exception = await Assert.ThrowsAnyAsync<ArgumentNullException>(
 				async () => await MundaneMiddleware.ExecuteRequest(
 					new DefaultHttpContext(),
+					null!,
 					_ => ValueTask.FromResult(Response.Ok()),
-					new Dictionary<string, string>(0),
-					null!));
+					new RouteParameters(new Dictionary<string, string>(0))));
 
 			Assert.Equal("dependencyFinder", exception.ParamName!);
 		}
@@ -42,22 +42,22 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 			var exception = await Assert.ThrowsAnyAsync<ArgumentNullException>(
 				async () => await MundaneMiddleware.ExecuteRequest(
 					new DefaultHttpContext(),
+					new Dependencies(),
 					null!,
-					new Dictionary<string, string>(0),
-					new Dependencies()));
+					new RouteParameters(new Dictionary<string, string>(0))));
 
 			Assert.Equal("endpoint", exception.ParamName!);
 		}
 
 		[Fact]
-		public static async Task When_The_Route_Parameters_Parameter_Is_Null()
+		public static async Task When_The_RouteParameters_Parameter_Is_Null()
 		{
 			var exception = await Assert.ThrowsAnyAsync<ArgumentNullException>(
 				async () => await MundaneMiddleware.ExecuteRequest(
 					new DefaultHttpContext(),
+					new Dependencies(),
 					_ => ValueTask.FromResult(Response.Ok()),
-					null!,
-					new Dependencies()));
+					null!));
 
 			Assert.Equal("routeParameters", exception.ParamName!);
 		}

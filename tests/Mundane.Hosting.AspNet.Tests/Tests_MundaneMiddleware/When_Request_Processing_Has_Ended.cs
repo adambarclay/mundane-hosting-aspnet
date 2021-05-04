@@ -4,7 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Xunit;
 
 namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
@@ -18,18 +17,13 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 		{
 			var output = Guid.NewGuid().ToString();
 
-			await using (var bodyStream = new MemoryStream())
+			await using (var responseStream = new MemoryStream())
 			{
-				var context = new DefaultHttpContext();
-
-				context.Request.Method = HttpMethod.Get;
-				context.Request.Path = "/";
-				context.Response.Body = bodyStream;
+				var context = Helper.Create(responseStream);
 
 				await entryPoint.Invoke(
 					context,
-					HttpMethod.Get,
-					"/",
+					new Dependencies(),
 					MundaneEndpointFactory.Create(() => Response.Ok(o => o.Write(output))));
 
 				context.Response.Body.Position = 0;
@@ -52,18 +46,13 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 				new KeyValuePair<string, string>(Guid.NewGuid().ToString(), Guid.NewGuid().ToString())
 			};
 
-			await using (var bodyStream = new MemoryStream())
+			await using (var responseStream = new MemoryStream())
 			{
-				var context = new DefaultHttpContext();
-
-				context.Request.Method = HttpMethod.Get;
-				context.Request.Path = "/";
-				context.Response.Body = bodyStream;
+				var context = Helper.Create(responseStream);
 
 				await entryPoint.Invoke(
 					context,
-					HttpMethod.Get,
-					"/",
+					new Dependencies(),
 					MundaneEndpointFactory.Create(
 						() => Response.Ok()
 							.AddHeader(HeaderValue.SessionCookie(cookies[0].Key, cookies[0].Value))
@@ -92,18 +81,13 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 				new KeyValuePair<string, string>(Guid.NewGuid().ToString(), Guid.NewGuid().ToString())
 			};
 
-			await using (var bodyStream = new MemoryStream())
+			await using (var responseStream = new MemoryStream())
 			{
-				var context = new DefaultHttpContext();
-
-				context.Request.Method = HttpMethod.Get;
-				context.Request.Path = "/";
-				context.Response.Body = bodyStream;
+				var context = Helper.Create(responseStream);
 
 				await entryPoint.Invoke(
 					context,
-					HttpMethod.Get,
-					"/",
+					new Dependencies(),
 					MundaneEndpointFactory.Create(
 						() => Response.Ok()
 							.AddHeader(new HeaderValue(headers[0].Key, headers[0].Value))
@@ -125,18 +109,13 @@ namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
 		{
 			const int statusCode = 12345;
 
-			await using (var bodyStream = new MemoryStream())
+			await using (var responseStream = new MemoryStream())
 			{
-				var context = new DefaultHttpContext();
-
-				context.Request.Method = HttpMethod.Get;
-				context.Request.Path = "/";
-				context.Response.Body = bodyStream;
+				var context = Helper.Create(responseStream);
 
 				await entryPoint.Invoke(
 					context,
-					HttpMethod.Get,
-					"/",
+					new Dependencies(),
 					MundaneEndpointFactory.Create(() => new Response(statusCode)));
 
 				Assert.Equal(statusCode, context.Response.StatusCode);

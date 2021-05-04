@@ -15,6 +15,11 @@ Install the [Mundane.Hosting.AspNet](https://www.nuget.org/packages/Mundane.Host
 ```c#
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+        var dependencies = new Dependencies(
+            new Dependency<Configuration>(new Configuration(env)),
+            new Dependency<DataRepository>(request => new DataRepositorySqlServer(
+                request.Dependency<Configuration>().ConnectionString)));
+
         var routing = new Routing(
             routeConfiguration =>
             {
@@ -23,12 +28,7 @@ Install the [Mundane.Hosting.AspNet](https://www.nuget.org/packages/Mundane.Host
                 routeConfiguration.Post("/data/{id}", DataController.UpdateData);
             });
 
-        var dependencies = new Dependencies(
-            new Dependency<Configuration>(new Configuration(env)),
-            new Dependency<DataRepository>(request => new DataRepositorySqlServer(
-                request.Dependency<Configuration>().ConnectionString)));
-
-        app.UseMundane(routing, dependencies);
+        app.UseMundane(dependencies, routing);
     }
 ```
 
@@ -41,8 +41,8 @@ Passing the current `HttpContext` and the routing and dependencies configuration
 ```c#
     public static async ValueTask ExecuteRequest(
         HttpContext context,
-        Routing routing,
-        DependencyFinder dependencyFinder)
+        DependencyFinder dependencyFinder,
+        Routing routing)
 ```
 
 It is also possible to execute a specifc endpoint with:
@@ -50,9 +50,9 @@ It is also possible to execute a specifc endpoint with:
 ```c#
     public static async ValueTask ExecuteRequest(
         HttpContext context,
+        DependencyFinder dependencyFinder,
         MundaneEndpointDelegate endpoint,
-        Dictionary<string, string> routeParameters,
-        DependencyFinder dependencyFinder)
+        Dictionary<string, string> routeParameters)
 ```
 
 The endpoint must be a `MundaneEndpointDelegate` which has the signature `ValueTask<Response> Endpoint(Request request)`. Any of the other Mundane endpoint signatures can be converted to a `MundaneEndpointDelegate` by calling `MundaneEndpoint.Create()` e.g.
