@@ -183,7 +183,7 @@ namespace Mundane.Hosting.AspNet
 
 		public string Cookie(string cookieName)
 		{
-			if (cookieName == null)
+			if (cookieName is null)
 			{
 				throw new ArgumentNullException(nameof(cookieName));
 			}
@@ -198,7 +198,7 @@ namespace Mundane.Hosting.AspNet
 
 		public bool CookieExists(string cookieName)
 		{
-			if (cookieName == null)
+			if (cookieName is null)
 			{
 				throw new ArgumentNullException(nameof(cookieName));
 			}
@@ -214,7 +214,7 @@ namespace Mundane.Hosting.AspNet
 
 		public FileUpload File(string parameterName)
 		{
-			if (parameterName == null)
+			if (parameterName is null)
 			{
 				throw new ArgumentNullException(nameof(parameterName));
 			}
@@ -234,7 +234,7 @@ namespace Mundane.Hosting.AspNet
 
 		public bool FileExists(string parameterName)
 		{
-			if (parameterName == null)
+			if (parameterName is null)
 			{
 				throw new ArgumentNullException(nameof(parameterName));
 			}
@@ -245,7 +245,7 @@ namespace Mundane.Hosting.AspNet
 
 		public string Form(string parameterName)
 		{
-			if (parameterName == null)
+			if (parameterName is null)
 			{
 				throw new ArgumentNullException(nameof(parameterName));
 			}
@@ -263,7 +263,7 @@ namespace Mundane.Hosting.AspNet
 
 		public bool FormExists(string parameterName)
 		{
-			if (parameterName == null)
+			if (parameterName is null)
 			{
 				throw new ArgumentNullException(nameof(parameterName));
 			}
@@ -273,7 +273,7 @@ namespace Mundane.Hosting.AspNet
 
 		public string Header(string headerName)
 		{
-			if (headerName == null)
+			if (headerName is null)
 			{
 				throw new ArgumentNullException(nameof(headerName));
 			}
@@ -288,7 +288,7 @@ namespace Mundane.Hosting.AspNet
 
 		public bool HeaderExists(string headerName)
 		{
-			if (headerName == null)
+			if (headerName is null)
 			{
 				throw new ArgumentNullException(nameof(headerName));
 			}
@@ -298,7 +298,7 @@ namespace Mundane.Hosting.AspNet
 
 		public string Query(string parameterName)
 		{
-			if (parameterName == null)
+			if (parameterName is null)
 			{
 				throw new ArgumentNullException(nameof(parameterName));
 			}
@@ -313,7 +313,7 @@ namespace Mundane.Hosting.AspNet
 
 		public bool QueryExists(string parameterName)
 		{
-			if (parameterName == null)
+			if (parameterName is null)
 			{
 				throw new ArgumentNullException(nameof(parameterName));
 			}
@@ -323,7 +323,7 @@ namespace Mundane.Hosting.AspNet
 
 		public string Route(string parameterName)
 		{
-			if (parameterName == null)
+			if (parameterName is null)
 			{
 				throw new ArgumentNullException(nameof(parameterName));
 			}

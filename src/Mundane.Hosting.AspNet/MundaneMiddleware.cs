@@ -17,17 +17,17 @@ namespace Mundane.Hosting.AspNet
 		/// <exception cref="ArgumentNullException"><paramref name="context"/>, <paramref name="routing"/> or <paramref name="dependencyFinder"/> is <see langword="null"/>.</exception>
 		public static ValueTask ExecuteRequest(HttpContext context, DependencyFinder dependencyFinder, Routing routing)
 		{
-			if (context == null)
+			if (context is null)
 			{
 				return ValueTask.FromException(new ArgumentNullException(nameof(context)));
 			}
 
-			if (dependencyFinder == null)
+			if (dependencyFinder is null)
 			{
 				return ValueTask.FromException(new ArgumentNullException(nameof(dependencyFinder)));
 			}
 
-			if (routing == null)
+			if (routing is null)
 			{
 				return ValueTask.FromException(new ArgumentNullException(nameof(routing)));
 			}
@@ -48,22 +48,22 @@ namespace Mundane.Hosting.AspNet
 			MundaneEndpoint endpoint,
 			RouteParameters routeParameters)
 		{
-			if (context == null)
+			if (context is null)
 			{
 				return ValueTask.FromException(new ArgumentNullException(nameof(context)));
 			}
 
-			if (dependencyFinder == null)
+			if (dependencyFinder is null)
 			{
 				return ValueTask.FromException(new ArgumentNullException(nameof(dependencyFinder)));
 			}
 
-			if (endpoint == null)
+			if (endpoint is null)
 			{
 				return ValueTask.FromException(new ArgumentNullException(nameof(endpoint)));
 			}
 
-			if (routeParameters == null)
+			if (routeParameters is null)
 			{
 				return ValueTask.FromException(new ArgumentNullException(nameof(routeParameters)));
 			}
@@ -82,17 +82,17 @@ namespace Mundane.Hosting.AspNet
 			DependencyFinder dependencyFinder,
 			Routing routing)
 		{
-			if (app == null)
+			if (app is null)
 			{
 				throw new ArgumentNullException(nameof(app));
 			}
 
-			if (dependencyFinder == null)
+			if (dependencyFinder is null)
 			{
 				throw new ArgumentNullException(nameof(dependencyFinder));
 			}
 
-			if (routing == null)
+			if (routing is null)
 			{
 				throw new ArgumentNullException(nameof(routing));
 			}
