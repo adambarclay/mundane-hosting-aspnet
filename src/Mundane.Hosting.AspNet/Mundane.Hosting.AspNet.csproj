@@ -10,7 +10,7 @@
 		<IncludeSymbols>true</IncludeSymbols>
 		<PackageIcon>Mundane.png</PackageIcon>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageTags>Mundane</PackageTags>
+		<PackageTags>Mundane;Web;Framework;ASP.NET</PackageTags>
 		<PackageProjectUrl>https://github.com/adambarclay/mundane-hosting-aspnet</PackageProjectUrl>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
