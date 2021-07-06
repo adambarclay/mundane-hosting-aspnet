@@ -53,13 +53,13 @@ It is also possible to execute a specifc endpoint with:
     public static async ValueTask ExecuteRequest(
         HttpContext context,
         DependencyFinder dependencyFinder,
-        MundaneEndpointDelegate endpoint,
+        MundaneEndpoint endpoint,
         Dictionary<string, string> routeParameters)
 ```
 
-The endpoint must be a `MundaneEndpointDelegate` which has the signature `ValueTask<Response> Endpoint(Request request)`. Any of the other Mundane endpoint signatures can be converted to a `MundaneEndpointDelegate` by calling `MundaneEndpoint.Create()` e.g.
+The endpoint must be a `MundaneEndpoint` which has the signature `ValueTask<Response> Endpoint(Request request)`. Any of the other Mundane endpoint signatures can be converted to a `MundaneEndpoint` by calling `MundaneEndpointFactory.Create()` e.g.
 ```c#
-    MundaneEndpoint.Create(() => Response.Ok(o => Write("Hello World!")));
+    MundaneEndpointFactory.Create(() => Response.Ok(o => Write("Hello World!")));
 ```
 
 Since there is no routing information in this version of `ExecuteRequest()`, you must also supply an appropriate `routeParameters` dictionary for the endpoint. When called as part of the pipeline, Mundane creates a dictionary of parameters captured from the URL, e.g. for the route `/my-endpoint/{id}`, called with `/my-endpoint/123`, Mundane passes `new Dictionary<string, string> { { "id", "123" } }` as `routeParameters`.
