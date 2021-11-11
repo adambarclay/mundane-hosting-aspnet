@@ -4,26 +4,25 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Mundane.Hosting.AspNet.Tests.Tests_RequestAspNet
+namespace Mundane.Hosting.AspNet.Tests.Tests_RequestAspNet;
+
+[ExcludeFromCodeCoverage]
+public static class RequestAborted_Returns_A_Value
 {
-	[ExcludeFromCodeCoverage]
-	public static class RequestAborted_Returns_A_Value
+	[Theory]
+	[ClassData(typeof(EntryPointTheoryData))]
+	public static async Task Which_Was_Passed_To_The_Constructor(EntryPoint entryPoint)
 	{
-		[Theory]
-		[ClassData(typeof(EntryPointTheoryData))]
-		public static async Task Which_Was_Passed_To_The_Constructor(EntryPoint entryPoint)
+		var requestAborted = new CancellationToken(true);
+
+		await using (var responseStream = new MemoryStream())
 		{
-			var requestAborted = new CancellationToken(true);
+			var result = await Helper.Test(
+				entryPoint,
+				Helper.Create(responseStream, c => c.RequestAborted = requestAborted),
+				request => request.RequestAborted);
 
-			await using (var responseStream = new MemoryStream())
-			{
-				var result = await Helper.Test(
-					entryPoint,
-					Helper.Create(responseStream, c => c.RequestAborted = requestAborted),
-					request => request.RequestAborted);
-
-				Assert.Equal(requestAborted, result);
-			}
+			Assert.Equal(requestAborted, result);
 		}
 	}
 }

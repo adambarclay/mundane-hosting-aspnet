@@ -1,44 +1,43 @@
 using System.IO;
 using Microsoft.AspNetCore.Http;
 
-namespace Mundane.Hosting.AspNet
+namespace Mundane.Hosting.AspNet;
+
+internal sealed class FileUploadAspNet : FileUpload
 {
-	internal sealed class FileUploadAspNet : FileUpload
+	private readonly IFormFile formFile;
+
+	internal FileUploadAspNet(IFormFile formFile)
 	{
-		private readonly IFormFile formFile;
+		this.formFile = formFile;
+	}
 
-		internal FileUploadAspNet(IFormFile formFile)
+	public override string FileName
+	{
+		get
 		{
-			this.formFile = formFile;
+			return this.formFile.FileName;
 		}
+	}
 
-		public override string FileName
+	public override long Length
+	{
+		get
 		{
-			get
-			{
-				return this.formFile.FileName;
-			}
+			return this.formFile.Length;
 		}
+	}
 
-		public override long Length
+	public override string MediaType
+	{
+		get
 		{
-			get
-			{
-				return this.formFile.Length;
-			}
+			return this.formFile.ContentType;
 		}
+	}
 
-		public override string MediaType
-		{
-			get
-			{
-				return this.formFile.ContentType;
-			}
-		}
-
-		public override Stream Open()
-		{
-			return this.formFile.OpenReadStream();
-		}
+	public override Stream Open()
+	{
+		return this.formFile.OpenReadStream();
 	}
 }

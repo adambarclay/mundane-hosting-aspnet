@@ -5,23 +5,22 @@ using Microsoft.AspNetCore.Http;
 using Moq;
 using Xunit;
 
-namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware
+namespace Mundane.Hosting.AspNet.Tests.Tests_MundaneMiddleware;
+
+[ExcludeFromCodeCoverage]
+public static class UseMundane_Returns_An_IApplicationBuilder
 {
-	[ExcludeFromCodeCoverage]
-	public static class UseMundane_Returns_An_IApplicationBuilder
+	[Fact]
+	public static void Identical_To_The_One_Passed_To_It()
 	{
-		[Fact]
-		public static void Identical_To_The_One_Passed_To_It()
-		{
-			var applicationBuilder = new Mock<IApplicationBuilder>(MockBehavior.Strict);
+		var applicationBuilder = new Mock<IApplicationBuilder>(MockBehavior.Strict);
 
-			var app = applicationBuilder.Object!;
+		var app = applicationBuilder.Object!;
 
-			applicationBuilder.Setup(o => o.Use(It.IsAny<Func<RequestDelegate, RequestDelegate>>()!))!.Returns(app);
+		applicationBuilder.Setup(o => o.Use(It.IsAny<Func<RequestDelegate, RequestDelegate>>()!))!.Returns(app);
 
-			var returnValue = app.UseMundane(new Dependencies(), new Routing(_ => { }));
+		var returnValue = app.UseMundane(new Dependencies(), new Routing(_ => { }));
 
-			Assert.Same(app, returnValue);
-		}
+		Assert.Same(app, returnValue);
 	}
 }
