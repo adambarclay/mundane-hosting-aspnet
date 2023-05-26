@@ -2,7 +2,7 @@
 
 # Mundane.Hosting.AspNet
 
-[![License: MIT](https://img.shields.io/github/license/adambarclay/mundane-hosting-aspnet?color=blue)](https://github.com/adambarclay/mundane-hosting-aspnet/blob/main/LICENSE) [![nuget](https://img.shields.io/nuget/v/Mundane.Hosting.AspNet)](https://www.nuget.org/packages/Mundane.Hosting.AspNet/) [![build](https://img.shields.io/github/workflow/status/adambarclay/mundane-hosting-aspnet/Build/main)](https://github.com/adambarclay/mundane-hosting-aspnet/actions?query=workflow%3ABuild+branch%3Amain) [![coverage](https://img.shields.io/codecov/c/github/adambarclay/mundane-hosting-aspnet/main)](https://codecov.io/gh/adambarclay/mundane-hosting-aspnet/branch/main)
+[![License: MIT](https://img.shields.io/github/license/adambarclay/mundane-hosting-aspnet?color=blue)](https://github.com/adambarclay/mundane-hosting-aspnet/blob/main/LICENSE) [![nuget](https://img.shields.io/nuget/v/Mundane.Hosting.AspNet)](https://www.nuget.org/packages/Mundane.Hosting.AspNet/) [![build](https://img.shields.io/github/actions/workflow/status/adambarclay/mundane-hosting-aspnet/build.yml?branch=main)](https://github.com/adambarclay/mundane-hosting-aspnet/actions?query=workflow%3ABuild+branch%3Amain) [![coverage](https://img.shields.io/codecov/c/github/adambarclay/mundane-hosting-aspnet/main)](https://codecov.io/gh/adambarclay/mundane-hosting-aspnet/branch/main)
 
 Mundane is a lightweight "no magic" web framework for .NET.
 
